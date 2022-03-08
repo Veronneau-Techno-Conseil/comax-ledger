@@ -1,0 +1,25 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "CommunAxiom.Ledger.Contracts";
+
+message Account {
+    message AccountDetail {
+        string firstName = 1;
+        string lastName = 2;
+        string dateOfBirth = 3;
+        string address = 4;
+        string city = 5;
+        string postalCode = 6;
+        string country = 7;
+    }
+
+    string public_key = 1;
+    string label = 2;
+    AccountDetail details = 3;
+    string secretKey = 4;
+    repeated string assets = 5;
+}
+
+message AccountContainer {
+    repeated Account entries = 1;
+}

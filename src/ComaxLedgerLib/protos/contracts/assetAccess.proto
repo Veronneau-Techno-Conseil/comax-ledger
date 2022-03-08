@@ -1,0 +1,21 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "CommunAxiom.Ledger.Contracts";
+
+message AssetAccess  
+{
+	enum AccessLevel{
+		NoAccess = 0;
+		Read = 1;
+		Write = 2;
+	}
+
+	string asset = 1;
+	string receipient = 2;
+	AccessLevel level = 3;
+}
+
+message AssetAccessCollection
+{
+	repeated AssetAccess entries = 1;
+}

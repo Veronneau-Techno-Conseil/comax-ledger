@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <AssemblyName>CommunAxiom.Ledger.ComaxProcessor</AssemblyName>
+	  <RootNamespace>CommunAxiom.Ledger.ComaxProcessor</RootNamespace>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PeterO.Cbor" Version="4.5.2" />
+    <PackageReference Include="Sawtooth.Sdk" Version="1.0.14" />
+  </ItemGroup>
+
+</Project>

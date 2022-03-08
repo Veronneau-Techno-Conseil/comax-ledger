@@ -1,0 +1,25 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "CommunAxiom.Ledger.Contracts";
+import "google/protobuf/timestamp.proto";
+
+message Asset {
+	message OwnerDetail{
+		string owner = 1;
+		google.protobuf.Timestamp start = 2;
+	}
+
+	enum AssetType {
+		element = 0;
+		collection = 1;
+	}
+
+	string name = 1;
+	OwnerDetail owner = 2;
+	AssetType type = 3;
+	repeated OwnerDetail history = 4;
+}
+
+message AssetCollection {
+	repeated Asset entries = 1;
+}
