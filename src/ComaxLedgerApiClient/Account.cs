@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CommunAxiom.Ledger.Api.Contracts
+﻿namespace CommunAxiom.Ledger.Api.Contracts
 {
     public class Account
     {
