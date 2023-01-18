@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option csharp_namespace = "CommunAxiom.Ledger.ProtobufTests";
+
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+message Person {
+  
+  message Role {
+    int32 id = 1;
+    string title = 2;
+  }
+  
+  int64 id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  double salary = 4;
+  bool isActive = 5;  
+  repeated string assets = 6;
+  google.protobuf.Timestamp start = 7;
+  google.protobuf.Timestamp duration = 8;
+  google.protobuf.Timestamp birthDate = 9;
+  google.protobuf.Int32Value age = 10;
+  repeated Role roles = 11;
+  map<string, string> attributes = 12;
+}
+  

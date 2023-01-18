@@ -11,7 +11,7 @@ namespace ComaxLedgerApi.Controllers
         [HttpPost]
         public IActionResult CreateAccount()
         {
-
+            throw new NotImplementedException();
         }
     }
 }
