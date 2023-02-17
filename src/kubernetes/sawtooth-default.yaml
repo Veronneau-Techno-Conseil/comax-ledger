@@ -85,6 +85,6 @@ services:
     depends_on:
       - rest-api
     entrypoint: "bash -c \"\
-        sawtooth keygen --force && \
+        sawtooth keygen && \
         tail -f /dev/null \
         \""

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sawtooth-web
+  labels:
+    app: sawtooth-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sawtooth-web
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: sawtooth-web
+    spec:
+      containers:
+        - name: sawtooth-web
+          image: spanahifar/sawtooth-web
+          resources:
+            requests:
+              cpu: 500m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 128Mi
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80

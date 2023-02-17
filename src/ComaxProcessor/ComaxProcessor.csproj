@@ -11,7 +11,12 @@
 
   <ItemGroup>
     <PackageReference Include="PeterO.Cbor" Version="4.5.2" />
+    <PackageReference Include="protobuf-net" Version="3.1.26" />
     <PackageReference Include="Sawtooth.Sdk" Version="1.0.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ComaxLedgerApiClient\ComaxLedgerApiContracts.csproj" />
   </ItemGroup>
 
 </Project>

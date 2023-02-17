@@ -16,7 +16,7 @@ namespace CommunAxiom.Ledger.ComaxProcessor
             
             var processor = new TransactionProcessor(validatorAddress);
             
-            processor.AddHandler(new ComaxSampleHandler());
+            processor.AddHandler(new IntKeyTransactionHandler());
             processor.Start();
 
             Console.CancelKeyPress += delegate { processor.Stop(); };

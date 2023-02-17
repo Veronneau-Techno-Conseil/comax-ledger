@@ -1,41 +1,40 @@
-﻿using Google.Protobuf;
-using PeterO.Cbor;
+﻿using CommunAxiom.Ledger.Api.Contracts;
+using Google.Protobuf;
+using ProtoBuf;
 using Sawtooth.Sdk;
 using Sawtooth.Sdk.Processor;
 
 namespace CommunAxiom.Ledger.ComaxProcessor
 {
-    public class ComaxSampleHandler : ITransactionHandler
+    public class IntKeyTransactionHandler : ITransactionHandler
     {
         T[] Arrayify<T>(T obj) => new[] { obj };
 
         public string FamilyName => ProcessorConstants.COMAX_FAMILY;
 
-        public string Version => "1.0.0";
+        public string Version => ProcessorConstants.VERSION;
 
         public string[] Namespaces => new[] { ProcessorConstants.COMAX_FAMILY_PREFIX };
 
         public async Task ApplyAsync(TpProcessRequest request, TransactionContext context)
         {
-            var obj = CBORObject.DecodeFromBytes(request.Payload.ToByteArray());
-
-            var name = obj["Name"].AsString();
-            var verb = obj["Verb"].AsString().ToLowerInvariant();
-
-            switch (verb)
+            using var payload = new MemoryStream(request.Payload.ToByteArray());
+            var data = Serializer.Deserialize<IntKeyEntity>(payload);
+            
+            switch (data.Verb)
             {
                 case "set":
-                    var value = obj["Value"].AsInt32();
-                    await SetValue(name, value, context);
+                    var value =data.Value;
+                    await SetValue(data.Name, value, context);
                     break;
                 case "inc":
-                    await Increase(name, context);
+                    await Increase(data.Name, context);
                     break;
                 case "dec":
-                    await Decrease(name, context);
+                    await Decrease(data.Name, context);
                     break;
                 default:
-                    throw new InvalidTransactionException($"Unknown verb {verb}");
+                    throw new InvalidTransactionException($"Unknown verb {data.Verb}");
             }
         }
         

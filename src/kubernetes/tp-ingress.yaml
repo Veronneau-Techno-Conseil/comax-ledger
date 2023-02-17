@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: vault-issuer
+  generation: 1
+  name: sawtooth-web
+  namespace: sandbox1
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: sawtooth-web.pdsk3s.lan
+      http:
+        paths:
+          - backend:
+              service:
+                name: sawtooth-web
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix

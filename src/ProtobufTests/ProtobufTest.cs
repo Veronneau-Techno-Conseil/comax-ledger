@@ -23,6 +23,9 @@ namespace CommunAxiom.Ledger.ProtobufTests
             var result = file1.StreamEquals(file2);
 
             result.Should().Be(true);
+
+            file1.GetBuffer().Equals(file2.GetBuffer()).Should().Be(true);
+            
         }
     }
 }
