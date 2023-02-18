@@ -1,9 +1,17 @@
+using ComaxLedgerApi;
+using CommunAxiom.Ledger.Api.Contracts;
+using CommunAxiom.Ledger.ComaxProcessor;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddTransient<HttpClientHelper>();
+builder.Services.AddTransient<ITransaction<IntKeyEntity>, IntKeyTransaction>();
+
+// var sawtoothOptions = new SawtoothOptions();
+// builder.Services.Configure<SawtoothOptions>(sawtoothOptions.Config,  builder.Configuration.GetSection("SawtoothConfig"));
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);

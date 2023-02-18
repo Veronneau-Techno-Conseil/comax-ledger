@@ -1,22 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
 	  <AssemblyName>CommunAxiom.Ledger.Lib</AssemblyName>
 	  <RootNamespace>CommunAxiom.Ledger.Lib</RootNamespace>
+	  <LangVersion>10</LangVersion>
   </PropertyGroup>
-
-	<ItemGroup>
-		<Protobuf Include="**/*.proto" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Remove="protos\contracts\asset.proto" />
-	  <None Remove="protos\contracts\assetAccess.proto" />
-	  <None Remove="protos\transactions\NewAccount.proto" />
-	  <None Remove="protos\transactions\SetAccess.proto" />
-	</ItemGroup>
-
+	
 	<ItemGroup>
 		<PackageReference Include="Google.Protobuf" Version="3.19.4" />
 		<PackageReference Include="Google.Protobuf.Tools" Version="3.19.4" />
@@ -24,7 +14,12 @@
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="protobuf-net" Version="3.1.26" />
 		<PackageReference Include="Sawtooth.Sdk" Version="1.0.14" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\ComaxLedgerApiClient\ComaxLedgerApiContracts.csproj" />
 	</ItemGroup>
 	
 </Project>

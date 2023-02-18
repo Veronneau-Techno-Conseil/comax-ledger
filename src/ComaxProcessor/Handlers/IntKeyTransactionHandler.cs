@@ -10,11 +10,11 @@ namespace CommunAxiom.Ledger.ComaxProcessor
     {
         T[] Arrayify<T>(T obj) => new[] { obj };
 
-        public string FamilyName => ProcessorConstants.COMAX_FAMILY;
+        public string FamilyName => Processor.COMAX_FAMILY;
 
-        public string Version => ProcessorConstants.VERSION;
+        public string Version => Processor.VERSION;
 
-        public string[] Namespaces => new[] { ProcessorConstants.COMAX_FAMILY_PREFIX };
+        public string[] Namespaces => new[] { Processor.COMAX_FAMILY_PREFIX };
 
         public async Task ApplyAsync(TpProcessRequest request, TransactionContext context)
         {
@@ -38,7 +38,7 @@ namespace CommunAxiom.Ledger.ComaxProcessor
             }
         }
         
-        private string GetAddress(string name) => ProcessorConstants.COMAX_FAMILY_PREFIX + name.ToByteArray().ToSha512().TakeLast(32).ToArray().ToHexString();
+        private string GetAddress(string name) => Processor.COMAX_FAMILY_PREFIX + name.ToByteArray().ToSha512().TakeLast(32).ToArray().ToHexString();
         
         private async Task SetValue(string name, int value, TransactionContext context)
         {
