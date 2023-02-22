@@ -4,6 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>CommunAxiom.Ledger.ComaxLedgerApi</AssemblyName>
+    <RootNamespace>CommunAxiom.Ledger.ComaxLedgerApi</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ComaxLedgerApiClient\ComaxLedgerApiContracts.csproj" />
     <ProjectReference Include="..\ComaxLedgerLib\ComaxLedgerLib.csproj" />
-    <ProjectReference Include="..\ComaxProcessor\ComaxProcessor.csproj" />
   </ItemGroup>
 
 </Project>

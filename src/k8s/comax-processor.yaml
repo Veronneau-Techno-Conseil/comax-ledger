@@ -1,23 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sawtooth-web
+  namespace: sandbox1
+  name: comax-processor
   labels:
-    app: sawtooth-web
+    app: comax-processor
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sawtooth-web
+      app: comax-processor
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: sawtooth-web
+        app: comax-processor
     spec:
       containers:
-        - name: sawtooth-web
-          image: spanahifar/sawtooth-web
+        - name: comax-processor
+          image: spanahifar/comax-processor
           resources:
             requests:
               cpu: 500m
