@@ -1,25 +1,17 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
-
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /app
+COPY ComaxLedgerApi/*.csproj ComaxLedgerApi/
+RUN dotnet restore ComaxLedgerApi/ComaxLedgerApi.csproj
 
-COPY ComaxLedgerApi/. /ComaxLedgerApi
-COPY ComaxLedgerApiClient/. /ComaxLedgerApiClient
-COPY ComaxLedgerLib/. /ComaxLedgerLib
-
-WORKDIR /ComaxLedgerApi
-
-RUN dotnet restore
-
-RUN dotnet publish -c release -o out
-
-WORKDIR /app/out
+COPY . . 
+WORKDIR /app/ComaxLedgerApi
+RUN dotnet publish ComaxLedgerApi.csproj -c release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
-
 WORKDIR /app
-
-COPY --from=build-env app/out .
+COPY --from=build app/publish .
 
 EXPOSE 80
 
-ENTRYPOINT ["dotnet", "CommunAxiom.Ledger.ComaxLedgerApi.sdll"]
+ENTRYPOINT ["dotnet", "CommunAxiom.Ledger.ComaxLedgerApi.dll"]
+
