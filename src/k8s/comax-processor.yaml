@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: comax-processor
-          image: spanahifar/comax-processor:v1
+          image: spanahifar/comax-processor:v2
           resources:
             requests:
               cpu: 1m
