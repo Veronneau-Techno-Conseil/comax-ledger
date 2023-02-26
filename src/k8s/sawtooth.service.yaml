@@ -5,13 +5,22 @@ metadata:
   namespace: sandbox1
 spec:
   ports:
-    - name: apiport
-      port: 80
-      protocol: TCP
-      targetPort: 8008
-    - name: validator
+    - name: "4004"
       port: 4004
       protocol: TCP
       targetPort: 4004
+    - name: "5050"
+      port: 5050
+      protocol: TCP
+      targetPort: 5050
+    - name: "8008"
+      port: 8008
+      protocol: TCP
+      targetPort: 8008
+    - name: "8800"
+      port: 8800
+      protocol: TCP
+      targetPort: 8800
   selector:
-    name: sawtooth-1
+    name: sawtooth-0
+  type: ClusterIP

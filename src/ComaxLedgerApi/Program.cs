@@ -7,9 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<HttpClientHelper>();
 builder.Services.AddTransient<ITransaction<IntKeyEntity>, IntKeyTransaction>();
 
-// var sawtoothOptions = new SawtoothOptions();
-// builder.Services.Configure<SawtoothOptions>(sawtoothOptions.Config,  builder.Configuration.GetSection("SawtoothConfig"));
-
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();

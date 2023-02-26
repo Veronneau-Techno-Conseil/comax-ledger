@@ -18,13 +18,13 @@ spec:
     spec:
       containers:
         - name: comax-processor
-          image: spanahifar/comax-processor:v2
+          image: spanahifar/comax-processor:v3
           resources:
             requests:
-              cpu: 1m
+              cpu: 100m
               memory: 128Mi
             limits:
-              cpu: 1m
+              cpu: 100m
               memory: 128Mi
           imagePullPolicy: Always
           ports:

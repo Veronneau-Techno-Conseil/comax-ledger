@@ -1,90 +1,114 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  labels:
-    name: sawtooth-0
   namespace: sandbox1
   name: sawtooth-0
+  labels:
+    name: sawtooth-0
 spec:
-  containers:
-    - args:
-        - -vv
-        - -C
-        - tcp://sawtooth-0.sandbox1.svc.cluster.local:4004
-      command:
-        - settings-tp
-      image: hyperledger/sawtooth-settings-tp:chime
-      imagePullPolicy: IfNotPresent
-      name: sawtooth-settings-tp
-      resources:
-        limits:
-          cpu: 1m
-          memory: 128Mi
-        requests:
-          cpu: 1m
-          memory: 128Mi
-    - args:
-        - -c
-        - sawadm keygen && sawtooth keygen my_key && sawset genesis -k /root/.sawtooth/keys/my_key.priv
-          && sawset proposal create -k /root/.sawtooth/keys/my_key.priv sawtooth.consensus.algorithm.name=Devmode
-          sawtooth.consensus.algorithm.version=0.1 -o config.batch && sawadm genesis config-genesis.batch
-          config.batch && sawtooth-validator -vv --endpoint tcp://sawtooth-0.sandbox1.svc.cluster.local:8800
-          --bind component:tcp://eth0:4004 --bind consensus:tcp://eth0:5050 --bind network:tcp://eth0:8800
-      command:
-        - bash
-      image: hyperledger/sawtooth-validator:chime
-      imagePullPolicy: IfNotPresent
-      name: sawtooth-validator
-      ports:
-        - containerPort: 4004
-          name: tp
-          protocol: TCP
-        - containerPort: 5050
-          name: consensus
-          protocol: TCP
-        - containerPort: 8800
-          name: validators
-          protocol: TCP
-      resources:
-        limits:
-          cpu: 1m
-          memory: 128Mi
-        requests:
-          cpu: 1m
-          memory: 128Mi
-    - args:
-        - -C
-        - tcp://sawtooth-0.sandbox1.svc.cluster.local:4004
-        - --bind
-        - 0.0.0.0:8008
-      command:
-        - sawtooth-rest-api
-      image: hyperledger/sawtooth-rest-api:chime
-      imagePullPolicy: IfNotPresent
-      name: sawtooth-rest-api
-      ports:
-        - containerPort: 8008
-          name: api
-          protocol: TCP
-      resources:
-        limits:
-          cpu: 1m
-          memory: 128Mi
-        requests:
-          cpu: 1m
-          memory: 128Mi
-    - args:
-        - -c
-        - "sawtooth keygen && tail -f /dev/null"
-      command:
-        - bash
-      image: hyperledger/sawtooth-shell:chime
-      imagePullPolicy: IfNotPresent
-      name: sawtooth-shell
-      resources:
-        limits:
-          cpu: 1m
-          memory: 128Mi
-        requests:
-          cpu: 1m
-          memory: 128Mi
+  replicas: 1
+  selector:
+    matchLabels:
+      name: sawtooth-0
+  template:
+    metadata:
+      labels:
+        name: sawtooth-0
+    spec:
+      containers:
+        - name: sawtooth-devmode-engine
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          image: hyperledger/sawtooth-devmode-engine-rust:nightly
+          command:
+            - bash
+          args:
+            - -c
+            - "devmode-engine-rust -C tcp://sawtooth-0.sandbox1.svc.cluster.local:5050"
+              
+        - args:
+            - -vv
+            - -C
+            - tcp://sawtooth-0.sandbox1.svc.cluster.local:4004
+          command:
+            - settings-tp
+          image: hyperledger/sawtooth-settings-tp:chime
+          imagePullPolicy: IfNotPresent
+          name: sawtooth-settings-tp
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+        - args:
+            - -c
+            - sawadm keygen && sawtooth keygen my_key && sawset genesis -k /root/.sawtooth/keys/my_key.priv
+              && sawset proposal create -k /root/.sawtooth/keys/my_key.priv sawtooth.consensus.algorithm.name=Devmode
+              sawtooth.consensus.algorithm.version=0.1 -o config.batch && sawadm genesis config-genesis.batch
+              config.batch && sawtooth-validator -vv --endpoint tcp://sawtooth-0.sandbox1.svc.cluster.local:8800
+              --bind component:tcp://eth0:4004 --bind consensus:tcp://eth0:5050 --bind network:tcp://eth0:8800
+          command:
+            - bash
+          image: hyperledger/sawtooth-validator:chime
+          imagePullPolicy: IfNotPresent
+          name: sawtooth-validator
+          ports:
+            - containerPort: 4004
+              name: tp
+              protocol: TCP
+            - containerPort: 5050
+              name: consensus
+              protocol: TCP
+            - containerPort: 8800
+              name: validators
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+        - args:
+            - -C
+            - tcp://sawtooth-0.sandbox1.svc.cluster.local:4004
+            - --bind
+            - 0.0.0.0:8008
+          command:
+            - sawtooth-rest-api
+          image: hyperledger/sawtooth-rest-api:chime
+          imagePullPolicy: IfNotPresent
+          name: sawtooth-rest-api
+          ports:
+            - containerPort: 8008
+              name: api
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+        - args:
+            - -c
+            - "sawtooth keygen && tail -f /dev/null"
+          command:
+            - bash
+          image: hyperledger/sawtooth-shell:chime
+          imagePullPolicy: IfNotPresent
+          name: sawtooth-shell
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
