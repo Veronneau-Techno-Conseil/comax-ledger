@@ -1,5 +1,5 @@
 #### Comax ledger project
-
+The aim of this project is to implement a custom smart contract
 
 #### Run the project
 
