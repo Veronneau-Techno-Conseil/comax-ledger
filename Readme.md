@@ -19,6 +19,9 @@ The aim of this project is to implement a custom smart contract. This project im
 #### ComaxProcessor
 
 
+
+#### Protobuf Serilization
+
 #### Docker Installation 
 
 #### Kubernetes deployment configuration
