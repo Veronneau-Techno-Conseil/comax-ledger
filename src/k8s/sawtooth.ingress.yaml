@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  generation: 2
+  name: sawtooth
+  namespace: sandbox1
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: sawtooth.pdsk3s.lan
+      http:
+        paths:
+          - backend:
+              service:
+                name: sawtooth-0
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix

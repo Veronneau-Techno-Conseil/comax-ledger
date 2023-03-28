@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: vault-issuer
+  generation: 1
+  name: ledger-api
+  namespace: sandbox1
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: ledger-api.pdsk3s.lan
+      http:
+        paths:
+          - backend:
+              service:
+                name: ledger-api
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
